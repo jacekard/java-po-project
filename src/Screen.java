@@ -15,6 +15,6 @@ public class Screen{
         frame.getContentPane().add(BorderLayout.EAST, exit_button);
 
         frame.setVisible(true);
-        //to jest galaz deweloperska
+        workspace.xml
     }
 }
