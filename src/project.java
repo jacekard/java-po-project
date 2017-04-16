@@ -2,7 +2,14 @@
 public class project {
 
     public static void main(String []args) {
-        System.out.println("Hello World!");
+
+        Screen.windowApplication();
+
+        Swiat swiat = new Swiat();
+        char zn = '1';
+        do {
+            swiat.wykonajTure();
+        } while(!swiat.czyKoniec);
 
 
     }
