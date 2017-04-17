@@ -5,11 +5,11 @@ public class project {
 
         Screen.windowApplication();
 
-        Swiat swiat = new Swiat();
-        char zn = '1';
-        do {
-            swiat.wykonajTure();
-        } while(!swiat.czyKoniec);
+//        Swiat swiat = new Swiat();
+//        char zn = '1';
+//        do {
+//            swiat.wykonajTure();
+//        } while(!swiat.czyKoniec);
 
 
     }

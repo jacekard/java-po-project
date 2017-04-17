@@ -1,6 +1,3 @@
-/**
- * Created by Jacek on 2017-04-15.
- */
 public class point {
     public int x;
     public int y;
