@@ -31,7 +31,7 @@ public class Swiat {
     public boolean getCzyLoad() { return czyLoad; }
     public boolean getTarczaAlzura() { return tarczaAlzura; }
     public boolean getCzyRespawn() { return czyRespawn; }
-
+    public int getTurnCount() { return turnCount; }
     public void addTurn() { turnCount++; }
 
     Swiat() {
@@ -40,6 +40,8 @@ public class Swiat {
 
         lista = new ArrayList<>();
         komunikaty = new ArrayList<>();
+
+        komentuj("Nowa gra!");
 
         //alokacja pamięci dla organizmow na siatce
         world = new Organizm[HEIGHT][WIDTH];

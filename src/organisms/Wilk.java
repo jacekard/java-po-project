@@ -1,6 +1,6 @@
 package organisms;
 
-import main.*;  
+import main.*;
 
 public class Wilk {
 }
