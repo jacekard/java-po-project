@@ -10,9 +10,9 @@ public class Swiat {
     public final int WIDTH = 40;
     public final int HEIGHT = 20;
 
-    ArrayList<Organizm> lista;
-    ArrayList<String> komunikaty;
-    Organizm[][] world;
+    private ArrayList<Organizm> lista;
+    private ArrayList<String> komunikaty;
+    public Organizm[][] world;
     //
 
     private int turnCount = 0;

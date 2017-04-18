@@ -4,15 +4,15 @@ import main.Swiat;
 import main.Util;
 import main.point;
 
-public class Organizm implements Comparable<Organizm> {
-    private int sila;
-    private int inicjatywa;
-    private int color;
-    private int wiek;
-    private String rodzaj;
-    private point pos;
-    private point old_pos;
-    private Swiat swiat;
+public abstract class Organizm implements Comparable<Organizm> {
+    protected int sila;
+    protected int inicjatywa;
+    protected int color;
+    protected int wiek;
+    protected String rodzaj;
+    protected point pos;
+    protected point old_pos;
+    protected Swiat swiat;
 
     public Organizm(int sila, int inicjatywa, char color, int wiek, String rodzaj, Swiat swiat) {
         this.sila = sila;
