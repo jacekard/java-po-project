@@ -1,3 +1,9 @@
+package organisms;
+
+import main.Swiat;
+import main.Util;
+import main.point;
+
 public class Organizm implements Comparable<Organizm> {
     private int sila;
     private int inicjatywa;
@@ -6,7 +12,7 @@ public class Organizm implements Comparable<Organizm> {
     private String rodzaj;
     private point pos;
     private point old_pos;
-    protected Swiat swiat;
+    private Swiat swiat;
 
     public Organizm(int sila, int inicjatywa, char color, int wiek, String rodzaj, Swiat swiat) {
         this.sila = sila;
@@ -44,8 +50,8 @@ public class Organizm implements Comparable<Organizm> {
     }
 
     public void rysowanie() {
-        //Screen class
-        System.out.println("Obiekt klasy Organizm");
+        //main.Screen class
+        System.out.println("Obiekt klasy organisms.Organizm");
     }
 
     //gettery

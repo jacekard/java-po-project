@@ -1,3 +1,4 @@
+import main.*;
 
 public class project {
 
@@ -5,7 +6,7 @@ public class project {
 
         Screen.windowApplication();
 
-//        Swiat swiat = new Swiat();
+//        main.Swiat swiat = new main.Swiat();
 //        char zn = '1';
 //        do {
 //            swiat.wykonajTure();

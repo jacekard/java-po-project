@@ -1,7 +1,10 @@
+package main;
+
 import java.io.*;
 import java.lang.*;
 import java.util.Collections;
 import java.util.ArrayList;
+import organisms.*;
 
 public class Swiat {
     public final int WIDTH = 40;
@@ -47,11 +50,11 @@ public class Swiat {
         }
         //alokacja zwierzat i czlowieka.
         for (int k = 0; k < LICZBA_ZWIERZAT; k++) {
-            //lista.add(new Organizm());
+            //lista.add(new organisms.Organizm());
         }
 
         for (int k = 0; k < LICZBA_ROSLIN; k++) {
-            //lista.add(new Organizm());
+            //lista.add(new organisms.Organizm());
         }
         //lista.add(
         sortujInicjatywa();
@@ -81,7 +84,7 @@ public class Swiat {
         addTurn();
 
         //tutaj jakas funkcja rysowania, ktora rysuje obiekty po klasie czlowiek
-        //... prawdopodobnie statyczna funkcja z klasy Screen
+        //... prawdopodobnie statyczna funkcja z klasy main.Screen
     }
 
     public void rysujInterfejs() {
@@ -213,11 +216,11 @@ public class Swiat {
     }
 
     public void randomPlants() {
-        //if(Util.los(1,200) == 1)
+        //if(main.Util.los(1,200) == 1)
             //dodaj Guarana
-        // if(Util.los(1,200) == 2)
+        // if(main.Util.los(1,200) == 2)
             //dodaj Jagody
-        // if(Util.los(1,200) == 3)
+        // if(main.Util.los(1,200) == 3)
             //dodaj Barszcz
     }
 

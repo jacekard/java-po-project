@@ -1,5 +1,6 @@
+package main;
+
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 public class Screen extends JPanel{
@@ -17,7 +18,7 @@ public class Screen extends JPanel{
 
         JFrame frame = new JFrame();
         Plansza plansza = new Plansza();
-        frame.setTitle("Wirtualny Swiat -- Jacek Ardanowski 165178");
+        frame.setTitle("Wirtualny main.Swiat -- Jacek Ardanowski 165178");
         frame.setSize(800,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
