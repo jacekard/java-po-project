@@ -1,7 +1,7 @@
 package main;
 
-import javax.swing.*;
-import java.applet.*;
+import javax.swing.JPanel;
+import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Graphics;
 

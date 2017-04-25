@@ -1,14 +1,18 @@
 package main;
 
-import java.io.*;
-import java.lang.*;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.String;
 import java.util.Collections;
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 import organisms.*;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class Swiat {
     public int WIDTH = 40;
@@ -27,13 +31,9 @@ public class Swiat {
     private boolean czySave = false;
     private boolean czyLoad = false;
     private boolean tarczaAlzura = false;
-    private boolean czyRespawn = false;
+
     public Plansza plansza;
     public Sprite pusty_sprite;
-    public void changeStatement(boolean statement) {
-        if (statement) statement = false;
-        else statement = true;
-    }
 
     public boolean getCzyKoniec() {
         return czyKoniec;
@@ -55,12 +55,13 @@ public class Swiat {
         tarczaAlzura = statement;
     }
 
-    public boolean getCzyRespawn() {
-        return czyRespawn;
-    }
-
     public int getTurnCount() {
         return turnCount;
+    }
+
+    public void changeStatement(boolean statement) {
+        if (statement) statement = false;
+        else statement = true;
     }
 
     public ArrayList<String> getKomunikaty() { return komunikaty; }
@@ -72,16 +73,13 @@ public class Swiat {
     Swiat(int WIDTH, int HEIGHT) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
-        int LICZBA_ZWIERZAT = 0;
-        int LICZBA_ROSLIN = 0;
+        int LICZBA_ZWIERZAT = 3;
+        int LICZBA_ROSLIN = 5;
 
         lista = new ArrayList<>();
         komunikaty = new ArrayList<>();
 
         komentuj("Nowa gra!");
-
-        //test wyswietlania spritów!
-        //plansza.drawSprite(pusty_sprite, 55,15);
 
         //alokacja pamięci dla organizmow na planszy
         world = new Organizm[HEIGHT][WIDTH];
@@ -90,24 +88,30 @@ public class Swiat {
                 world[y][x] = null;
             }
         }
+
         //alokacja zwierzat i czlowieka.
+        lista.add(new Czlowiek(this));
+
         for (int k = 0; k < LICZBA_ZWIERZAT; k++) {
-            //lista.add(new organisms.Organizm());
+            lista.add(new Wilk(this));
+            lista.add(new Owca(this));
+            lista.add(new Antylopa(this));
+            lista.add(new Lis(this));
+            lista.add(new Zolw(this));
         }
 
         for (int k = 0; k < LICZBA_ROSLIN; k++) {
-            //lista.add(new organisms.Organizm());
+            lista.add(new Trawa(this));
+            lista.add(new Mlecz(this));
+            lista.add(new Guarana(this));
+            lista.add(new Jagody(this));
+            lista.add(new Barszcz(this));
         }
-        lista.add(new Czlowiek(this));
-        lista.add(new Wilk(this));
-        lista.add(new Trawa(this));
-        //sortujInicjatywa();
-
-
+        sortujInicjatywa();
     }
 
-    public void wykonajTure() {
-        //randomPlants();
+    protected void wykonajTure() {
+        randomPlants();
 
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).getWiek() != -1)
@@ -120,8 +124,7 @@ public class Swiat {
             }
         }
 
-        if (turnCount >= 100 - 1) {
-            komentuj("zakończono symulacje!");
+        if (turnCount >= 500 - 1) {
             changeStatement(czyKoniec);
         }
 
@@ -249,12 +252,14 @@ public class Swiat {
     }
 
     public void randomPlants() {
-        //if(main.Util.los(1,200) == 1)
-        //dodaj Guarana
-        // if(main.Util.los(1,200) == 2)
-        //dodaj Jagody
-        // if(main.Util.los(1,200) == 3)
-        //dodaj Barszcz
+        if(main.Util.los(1,200) == 1)
+            lista.add(new Guarana(this));
+
+         if(main.Util.los(1,200) == 2)
+             lista.add(new Jagody(this));
+
+         if(main.Util.los(1,200) == 3)
+             lista.add(new Barszcz(this));
     }
 
 

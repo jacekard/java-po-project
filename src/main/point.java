@@ -23,5 +23,4 @@ public class point {
     public void setY(int y) {
         this.y = y;
     }
-
 }

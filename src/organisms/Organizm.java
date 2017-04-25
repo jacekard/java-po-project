@@ -1,12 +1,9 @@
 package organisms;
-import java.awt.Color;
 
 import main.Sprite;
 import main.Swiat;
 import main.Util;
 import main.point;
-
-//prawdopodobnie color bedzie typem enumeracyjnym!
 
 public abstract class Organizm implements Comparable<Organizm> {
     protected int sila;
@@ -181,7 +178,7 @@ public abstract class Organizm implements Comparable<Organizm> {
                     break;
             }
         }
-        swiat.komentuj("Realokacja obiektu " + this.rodzaj + " nie udala sie ");
+       // swiat.komentuj("Realokacja obiektu " + this.rodzaj + " nie udala sie ");
         this.die();
     }
 

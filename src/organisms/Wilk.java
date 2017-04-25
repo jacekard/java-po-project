@@ -1,6 +1,7 @@
 package organisms;
 
-import main.*;
+import main.Sprite;
+import main.Swiat;
 
 public class Wilk extends Zwierze {
 

@@ -1,10 +1,13 @@
 package organisms;
 
-import main.*;
+import main.Sprite;
+import main.Swiat;
+import main.Util;
+import main.point;
 
 public abstract class Roslina extends Organizm {
     protected int maxZakresLosowania;
-    private boolean czyRosnie = true;
+    protected boolean czyRosnie = true;
 
     public Roslina(int sila, int inicjatywa, Sprite sprite, int wiek, String rodzaj, Swiat swiat) {
         super(sila, inicjatywa, sprite, wiek, rodzaj, swiat);
@@ -29,7 +32,7 @@ public abstract class Roslina extends Organizm {
         this.die();
     }
 
-    private boolean rozsiewanie() {
+    protected boolean rozsiewanie() {
         if (wiek >= 100) czyRosnie = false;
         point tmp = ruch();
         if ((pos.x + tmp.x < swiat.WIDTH - 1 && pos.y + tmp.y > 1)

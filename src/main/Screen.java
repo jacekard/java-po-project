@@ -1,10 +1,14 @@
 package main;
 
-import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import java.awt.Container;
+import java.awt.Font;
 
 public class Screen extends JPanel{
 

@@ -1,6 +1,9 @@
 package organisms;
 
-import main.*;
+import main.Sprite;
+import main.Swiat;
+import main.Util;
+import main.point;
 
 public abstract class Zwierze extends Organizm {
 
@@ -9,6 +12,9 @@ public abstract class Zwierze extends Organizm {
     }
 
     public void akcja() {
+        //dodaj wiek;
+        grow();
+
         point tmp = ruch();
 //        tmp.x = 0;
 //        tmp.y = 0;
@@ -31,15 +37,16 @@ public abstract class Zwierze extends Organizm {
             swiat.world[pos.y][pos.x] = this;
         }
 
-        //dodaj wiek;
-        grow();
+
     }
 
     public void kolizja(Organizm other) {
         if (other == this) return;
         String rodzaj = other.getRodzaj();
+
         if (czyRozmnazanie(other))
             this.rozmnazanie();
+        else if (rodzaj.equals(this.rodzaj)) return;
         else if (!czyOdbilAtak(other)) {
             if (other.getSila() >= sila) {
                 if (this.rodzaj.equals("CZLOWIEK"))
@@ -65,8 +72,8 @@ public abstract class Zwierze extends Organizm {
     }
 
     public boolean czyRozmnazanie(Organizm other) {
-        if (rodzaj.equals(other.getRodzaj())) {
-            if (Util.los(1, 3) == 1) {
+        if (this.rodzaj.equals(other.getRodzaj())) {
+            if (Util.los(1, 4) == 2) {
                 if (other.getWiek() > 15 && wiek > 15)
                     return true;
             }

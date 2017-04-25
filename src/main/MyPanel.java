@@ -32,27 +32,38 @@ public class MyPanel extends JPanel {
 
         empty_sprite = new Sprite(true);
 
-        setPreferredSize(new Dimension(800, 800));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        setPreferredSize(new Dimension(800, 600));
         setLayout(null);
         font = new Font(Font.SANS_SERIF, 3, 18);
 
         JButton save_button = new JButton("save");
         JButton load_button = new JButton("load");
         JButton next_turn = new JButton("nowa tura");
+        JButton tarcza_alzura = new JButton("tarcza alzura");
+
         save_button.setBounds(offset,plansza_height+offset, button_width, button_height);
         load_button.setBounds(button_width + 2*offset,plansza_height+offset, button_width, button_height);
         next_turn.setBounds(2*button_width + 3*offset,plansza_height+offset, button_width + 2*offset, button_height);
+        tarcza_alzura.setBounds(offset,plansza_height+2*offset+button_height, 2*button_width, button_height);
+
         add(save_button);
         add(load_button);
         add(next_turn);
+        add(tarcza_alzura);
 
 
         next_turn.addActionListener(e -> {
-            swiat.wykonajTure();
-            for(int i = 0; i < swiat.getKomunikaty().size(); i++)
-            System.out.println(swiat.getKomunikaty().get(i));
-            swiat.getKomunikaty().clear();
-            //System.out.println(swiat.lista.size());
+            if(!swiat.getCzyKoniec()) {
+                swiat.wykonajTure();
+                for (int i = 0; i < swiat.getKomunikaty().size(); i++)
+                    System.out.println(swiat.getKomunikaty().get(i));
+                swiat.getKomunikaty().clear();
+                //System.out.println(swiat.lista.size());
+            } else {
+                System.out.println("Koniec symulacji!");
+
+            }
         });
         save_button.addActionListener(e -> {
             swiat.save();
