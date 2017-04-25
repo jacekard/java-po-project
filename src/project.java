@@ -1,16 +1,14 @@
 import main.*;
 
+import java.io.IOException;
+
 public class project {
 
     public static void main(String []args) {
-
-        Screen.windowApplication();
-
-//        main.Swiat swiat = new main.Swiat();
-//        char zn = '1';
-//        do {
-//            swiat.wykonajTure();
-//        } while(!swiat.czyKoniec);
+        //Screen.initializeGame();
+        Screen screen = new Screen();
+        screen.initializeGame();
+       /// screen.windowApplication(20,20);
 
 
     }

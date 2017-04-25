@@ -1,23 +1,28 @@
 package organisms;
+import java.awt.Color;
 
+import main.Sprite;
 import main.Swiat;
 import main.Util;
 import main.point;
 
+//prawdopodobnie color bedzie typem enumeracyjnym!
+
 public abstract class Organizm implements Comparable<Organizm> {
     protected int sila;
     protected int inicjatywa;
-    protected int color;
+    protected Sprite sprite;
     protected int wiek;
     protected String rodzaj;
     protected point pos;
     protected point old_pos;
     protected Swiat swiat;
 
-    public Organizm(int sila, int inicjatywa, char color, int wiek, String rodzaj, Swiat swiat) {
+
+    public Organizm(int sila, int inicjatywa, Sprite sprite, int wiek, String rodzaj, Swiat swiat) {
         this.sila = sila;
         this.inicjatywa = inicjatywa;
-        this.color = color;
+        this.sprite = sprite;
         this.wiek = wiek;
         this.rodzaj = rodzaj;
         this.swiat = swiat;
@@ -40,18 +45,16 @@ public abstract class Organizm implements Comparable<Organizm> {
 
     }
 
-    public void rozmnazanie() {
-    }
+    public abstract void rozmnazanie();
 
-    public void akcja() {
-    }
+    public abstract void akcja();
 
-    public void kolizja(Organizm other) {
-    }
+    public abstract void kolizja(Organizm other);
 
     public void rysowanie() {
-        //main.Screen class
-        System.out.println("Obiekt klasy organisms.Organizm");
+        //swiat.plansza.drawSprite(swiat.pusty_sprite,this.old_pos.x, this.old_pos.y);
+        swiat.plansza.drawSprite(sprite, this.pos.x, this.pos.y);
+        //System.out.println("Obiekt klasy organisms.Organizm");
     }
 
     //gettery
@@ -87,6 +90,12 @@ public abstract class Organizm implements Comparable<Organizm> {
         return this.rodzaj;
     }
 
+    public String setProperSprite(String name) {
+        String path = "src/sprites/";
+        String ext = ".png";
+        return path+name+ext;
+    }
+
     //settery
     void setPosx(int x) {
         this.pos.x = x;
@@ -105,8 +114,15 @@ public abstract class Organizm implements Comparable<Organizm> {
     }
 
     boolean czyDozwolonyRuch(point tmp) {
-        //...
-        return true;
+        boolean correctX = true;
+        boolean correctY = true;
+        if (tmp.x > swiat.WIDTH - 1 || tmp.x < 1)
+            correctX = false;
+        if (tmp.y > swiat.HEIGHT - 1 || tmp.y < 1)
+            correctY = false;
+
+        if (correctX && correctY) return true;
+        else return	false;
     }
 
     void grow() {
@@ -117,14 +133,66 @@ public abstract class Organizm implements Comparable<Organizm> {
         if (this.rodzaj == "CZLOWIEK")
             swiat.changeStatement(swiat.getCzyKoniec());
         else {
-            //...
+            this.wiek = -1;
         }
     }
 
     void reallocate() {
+        point tmp;
+        int rand;
+        rand = Util.los(1, 4);
+        for (int i = 0; i < 4; i++) {
+            switch ((rand + i) % 4 + 1) {
+                case 1: 	//case up
+                    tmp = pos;
+                    tmp.y--;
+                    if ((czyDozwolonyRuch(tmp)) &&
+                            (swiat.world[tmp.y][tmp.x] == null)) {
+                        swiat.world[tmp.y][tmp.x] = this;
+                        pos = tmp;
+                        return;
+                    }
+                    break;
+                case 2: 	//case down
+                    tmp = pos;
+                    tmp.y++;
+                    if ((czyDozwolonyRuch(tmp)) &&
+                            (swiat.world[tmp.y][tmp.x] == null)) {
+                        swiat.world[tmp.y][tmp.x] = this;
+                        pos = tmp;
+                        return;
+                    }
+                    break;
+                case 3:	//case left
+                    tmp = pos;
+                    tmp.x--;
+                    if ((czyDozwolonyRuch(tmp)) &&
+                            (swiat.world[tmp.y][tmp.x] == null)) {
+                        swiat.world[tmp.y][tmp.x] = this;
+                        pos = tmp;
+                        return;
+                    }
+                    break;
+                case 4: 	//case right
+                    tmp = pos;
+                    tmp.x++;
+                    if ((czyDozwolonyRuch(tmp)) &&
+                            (swiat.world[tmp.y][tmp.x] == null)) {
+                        swiat.world[tmp.y][tmp.x] = this;
+                        pos = tmp;
+                        return;
+                    }
+                    break;
+            }
+        }
+        swiat.komentuj("Realokacja obiektu " + this.rodzaj + " nie udala sie ");
+        this.die();
     }
 
     void allocate() {
+        if(swiat.world[pos.y][pos.x] == null)
+            swiat.world[pos.y][pos.x] = this;
+        else reallocate();
     }
 
     point ruch() {
