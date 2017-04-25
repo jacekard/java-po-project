@@ -7,9 +7,6 @@ public class project {
 
     public static void main(String []args) {
 
-//        Screen screen = new Screen();
-//        screen.initializeGame();
-
         EventQueue.invokeLater(new Runnable() {
 
             @Override
@@ -18,5 +15,13 @@ public class project {
             }
         });
     }
+
+
+
+    //TODO:
+    //1. Obsluga myszy (funkcja respawnowania wybranych zwierzat)
+    //2. Obsluga poruszania czlowiekiem
+    //3. Dodanie reszty klas
+
 
 }

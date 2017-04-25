@@ -203,9 +203,6 @@ public abstract class Organizm implements Comparable<Organizm> {
         else if (kierunek_ruchu == 3)
             tmp.x++;
 
-
-        System.out.println(this.rodzaj + ": x: "+this.getPosx()+", y: "+this.getPosy());
-
         return tmp;
     }
 }

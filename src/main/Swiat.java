@@ -107,10 +107,6 @@ public class Swiat {
     }
 
     public void wykonajTure() {
-        if (czySave) save();
-        if (czyLoad) load();
-        if (czyRespawn) respawn(); //dodawanie zwierzat przy kliknieciu!
-
         //randomPlants();
 
         for (int i = 0; i < lista.size(); i++) {
@@ -149,7 +145,7 @@ public class Swiat {
         changeStatement(czySave);
 
         try {
-            FileWriter plik = new FileWriter("../Saves/save.txt", true);
+            FileWriter plik = new FileWriter("D:\\java-po\\src\\Saves\\save.txt", true);
             BufferedWriter buff = new BufferedWriter(plik);
 
             buff.write(WIDTH + " ");
@@ -203,7 +199,7 @@ public class Swiat {
         int y0 = 0;
         int a, b;
         try {
-            FileReader file = new FileReader("../Saves/save.txt");
+            FileReader file = new FileReader("./Saves/save.txt");
             int n;
 
             WIDTH = file.read();
@@ -250,10 +246,6 @@ public class Swiat {
             error.printStackTrace();
         }
 
-    }
-
-    public void respawn() {
-        //.. Obsluga myszy
     }
 
     public void randomPlants() {

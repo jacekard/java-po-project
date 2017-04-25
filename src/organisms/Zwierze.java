@@ -18,9 +18,7 @@ public abstract class Zwierze extends Organizm {
         if (pos.y + tmp.y > swiat.HEIGHT - 1 || pos.y + tmp.y < 1)
             tmp.y = 0;
 
-        point XD = new point();
-        XD = pos;
-        old_pos = XD;
+        old_pos = new point(pos);
         //aktualizuj pozycje
         pos.x += tmp.x;
         pos.y += tmp.y;

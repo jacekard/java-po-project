@@ -7,7 +7,11 @@ public class point {
         this.x = 0;
         this.y = 0;
     }
-/*    public int getX() {
+    public point(point other) {
+        this.x = other.getX();
+        this.y = other.getY();
+    }
+    public int getX() {
         return this.x;
     }
     public int getY() {
@@ -18,6 +22,6 @@ public class point {
     }
     public void setY(int y) {
         this.y = y;
-    }*/
+    }
 
 }

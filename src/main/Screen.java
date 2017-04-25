@@ -57,63 +57,51 @@ public class Screen extends JPanel{
 
         start_button.addActionListener(e -> {
                     frame.setVisible(false);
-                    windowApplication((Integer) widthSpinner.getValue(), (Integer) heightSpinner.getValue());
                 }
         );
     }
 
-    public void windowApplication(int WIDTH, int HEIGHT) {
-        final int PLANSZA_WIDTH = 400;
-        final int PLANSZA_HEIGHT = 400;
-        final int POLE_WIDTH = 30;
-        final int POLE_HEIGHT = 30;
-        final int button_width = 80;
-        final int button_height = 30;
-        final int offset = 10;
-
-        JFrame frame = new JFrame();
-
-        frame.setTitle("Wirtualny Swiat -- Jacek Ardanowski 165178");
-        frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.getContentPane().add(plansza);
-
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-        frame.add(panel);
-
-        //Inicjalizuj swiat!
-        Swiat swiat = new Swiat(WIDTH, HEIGHT);
-
-        JButton save_button = new JButton("save");
-        save_button.setBounds(offset, PLANSZA_HEIGHT + button_height, button_width, button_height);
-        panel.add(save_button);
-        JButton load_button = new JButton("load");
-        load_button.setBounds(2 * offset + button_width, PLANSZA_HEIGHT + button_height, button_width, button_height);
-        panel.add(load_button);
-        JButton next_turn = new JButton("nowa tura");
-        next_turn.setBounds(3 * offset + 2 * button_width, PLANSZA_HEIGHT + button_height, 2 * offset + button_width, button_height);
-        panel.add(next_turn);
-
-
-        repaint();
-
-        next_turn.addActionListener(e -> {
-            swiat.wykonajTure();
-            System.out.println(swiat.lista.size());
-//            plansza.rysujMape();
-//            plansza.wypiszKomunikaty();
-        });
-
-        frame.setVisible(true);
-    }
-
-
-    public void paint(Graphics g) {
-        g.drawRect(10, 10, 15,15);
-        g.setColor(Color.WHITE);
-       // g.fill3DRect(10, 10, 15,15, true);
-    }
-
-
+//    public void windowApplication(int WIDTH, int HEIGHT) {
+//        final int PLANSZA_WIDTH = 400;
+//        final int PLANSZA_HEIGHT = 400;
+//        final int POLE_WIDTH = 30;
+//        final int POLE_HEIGHT = 30;
+//        final int button_width = 80;
+//        final int button_height = 30;
+//        final int offset = 10;
+//
+//        JFrame frame = new JFrame();
+//
+//        frame.setTitle("Wirtualny Swiat -- Jacek Ardanowski 165178");
+//        frame.setSize(800, 600);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        //frame.getContentPane().add(plansza);
+//
+//        JPanel panel = new JPanel();
+//        panel.setLayout(null);
+//        frame.add(panel);
+//
+//        //Inicjalizuj swiat!
+//        Swiat swiat = new Swiat(WIDTH, HEIGHT);
+//
+//        JButton save_button = new JButton("save");
+//        save_button.setBounds(offset, PLANSZA_HEIGHT + button_height, button_width, button_height);
+//        panel.add(save_button);
+//        JButton load_button = new JButton("load");
+//        load_button.setBounds(2 * offset + button_width, PLANSZA_HEIGHT + button_height, button_width, button_height);
+//        panel.add(load_button);
+//        JButton next_turn = new JButton("nowa tura");
+//        next_turn.setBounds(3 * offset + 2 * button_width, PLANSZA_HEIGHT + button_height, 2 * offset + button_width, button_height);
+//        panel.add(next_turn);
+//
+//
+//        repaint();
+//
+//        next_turn.addActionListener(e -> {
+//            swiat.wykonajTure();
+//            System.out.println(swiat.lista.size());
+//        });
+//
+//        frame.setVisible(true);
+//    }
 }
