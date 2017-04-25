@@ -63,36 +63,18 @@ public class Swiat {
         return turnCount;
     }
 
+    public ArrayList<String> getKomunikaty() { return komunikaty; }
+
     public void addTurn() {
         turnCount++;
     }
 
-    public void Rysuj() {
-        for(int y = 0; y < HEIGHT; y++) {
-            for(int x = 0; x < WIDTH; x++) {
-                if(world[y][x] == null) {
-                     //plansza.drawSprite(pusty_sprite, x, y);
-                }
-                else {
-                    world[y][x].rysowanie();
-                    int ilosc = lista.size();
-                }
-            }
-        }
-    }
-
-    Swiat(int WIDTH, int HEIGHT, JPanel panel, JFrame frame) {
+    Swiat(int WIDTH, int HEIGHT) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         int LICZBA_ZWIERZAT = 0;
         int LICZBA_ROSLIN = 0;
-        this.panel = panel;
-        this.frame = frame;
 
-
-
-        plansza = new Plansza(frame, panel);
-        pusty_sprite = new Sprite(true);
         lista = new ArrayList<>();
         komunikaty = new ArrayList<>();
 
@@ -121,7 +103,7 @@ public class Swiat {
         lista.add(new Trawa(this));
         //sortujInicjatywa();
 
-        Rysuj();
+
     }
 
     public void wykonajTure() {
@@ -147,9 +129,8 @@ public class Swiat {
             changeStatement(czyKoniec);
         }
 
-        Rysuj();
         addTurn();
-        //wypiszKomunikaty();
+
     }
 
     public void listaGatunkow() {
@@ -158,16 +139,6 @@ public class Swiat {
 
     public void komentuj(String komunikat) {
         komunikaty.add(komunikat);
-    }
-
-    public void wypiszKomunikaty(int x, int y) {
-        if (komunikaty.size() == 0)
-            komentuj("Brak nowych komunikatow");
-
-        for (String str : komunikaty)
-            System.out.println(str);
-
-        komunikaty.clear();
     }
 
     public void sortujInicjatywa() {

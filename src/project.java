@@ -1,15 +1,22 @@
 import main.*;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class project {
 
     public static void main(String []args) {
-        //Screen.initializeGame();
-        Screen screen = new Screen();
-        screen.initializeGame();
-       /// screen.windowApplication(20,20);
 
+//        Screen screen = new Screen();
+//        screen.initializeGame();
 
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                new MyFrame();
+            }
+        });
     }
+
 }

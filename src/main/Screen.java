@@ -1,11 +1,12 @@
 package main;
 
+import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class Screen extends JPanel {
+public class Screen extends JPanel{
 
     public JFrame frame;
 
@@ -82,7 +83,7 @@ public class Screen extends JPanel {
         frame.add(panel);
 
         //Inicjalizuj swiat!
-        Swiat swiat = new Swiat(WIDTH,HEIGHT, panel, frame);
+        Swiat swiat = new Swiat(WIDTH, HEIGHT);
 
         JButton save_button = new JButton("save");
         save_button.setBounds(offset, PLANSZA_HEIGHT + button_height, button_width, button_height);
@@ -91,16 +92,28 @@ public class Screen extends JPanel {
         load_button.setBounds(2 * offset + button_width, PLANSZA_HEIGHT + button_height, button_width, button_height);
         panel.add(load_button);
         JButton next_turn = new JButton("nowa tura");
-        next_turn.setBounds(3 * offset + 2 * button_width, PLANSZA_HEIGHT + button_height, 2*offset+button_width, button_height);
+        next_turn.setBounds(3 * offset + 2 * button_width, PLANSZA_HEIGHT + button_height, 2 * offset + button_width, button_height);
         panel.add(next_turn);
+
+
+        repaint();
 
         next_turn.addActionListener(e -> {
             swiat.wykonajTure();
             System.out.println(swiat.lista.size());
-            //clearScreen();
+//            plansza.rysujMape();
+//            plansza.wypiszKomunikaty();
         });
 
         frame.setVisible(true);
     }
+
+
+    public void paint(Graphics g) {
+        g.drawRect(10, 10, 15,15);
+        g.setColor(Color.WHITE);
+       // g.fill3DRect(10, 10, 15,15, true);
+    }
+
 
 }

@@ -51,12 +51,6 @@ public abstract class Organizm implements Comparable<Organizm> {
 
     public abstract void kolizja(Organizm other);
 
-    public void rysowanie() {
-        //swiat.plansza.drawSprite(swiat.pusty_sprite,this.old_pos.x, this.old_pos.y);
-        swiat.plansza.drawSprite(sprite, this.pos.x, this.pos.y);
-        //System.out.println("Obiekt klasy organisms.Organizm");
-    }
-
     //gettery
     public int getPosx() {
         return this.pos.x;
@@ -85,6 +79,8 @@ public abstract class Organizm implements Comparable<Organizm> {
     public int getInicjatywa() {
         return this.inicjatywa;
     }
+
+    public Sprite getSprite() { return this.sprite; };
 
     public String getRodzaj() {
         return this.rodzaj;
@@ -206,6 +202,9 @@ public abstract class Organizm implements Comparable<Organizm> {
             tmp.x--;
         else if (kierunek_ruchu == 3)
             tmp.x++;
+
+
+        System.out.println(this.rodzaj + ": x: "+this.getPosx()+", y: "+this.getPosy());
 
         return tmp;
     }

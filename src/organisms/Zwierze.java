@@ -10,15 +10,17 @@ public abstract class Zwierze extends Organizm {
 
     public void akcja() {
         point tmp = ruch();
-        tmp.x = 0;
-        tmp.y = 0;
+//        tmp.x = 0;
+//        tmp.y = 0;
 
         if (pos.x + tmp.x > swiat.WIDTH - 1 || pos.x + tmp.x < 1)
             tmp.x = 0;
         if (pos.y + tmp.y > swiat.HEIGHT - 1 || pos.y + tmp.y < 1)
             tmp.y = 0;
 
-        old_pos = pos;
+        point XD = new point();
+        XD = pos;
+        old_pos = XD;
         //aktualizuj pozycje
         pos.x += tmp.x;
         pos.y += tmp.y;
