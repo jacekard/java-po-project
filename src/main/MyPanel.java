@@ -33,7 +33,7 @@ public class MyPanel extends JPanel {
         empty_sprite = new Sprite(true);
 
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(400+plansza_width, 300+plansza_height));
         setLayout(null);
         font = new Font(Font.SANS_SERIF, 3, 18);
 

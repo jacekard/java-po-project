@@ -8,21 +8,19 @@ import javax.swing.JTextArea;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import java.awt.Container;
+import java.awt.EventQueue;
 import java.awt.Font;
 
-public class Screen extends JPanel{
+public class Init extends JFrame {
 
     public JFrame frame;
 
-    public Screen() {
-    }
-
-    public void initializeGame() {
+    public Init() {
         frame = new JFrame();
 
         Font font = new Font(Font.SANS_SERIF, 3, 18);
-        SpinnerModel widthModel = new SpinnerNumberModel(40, 10, 200, 1);
-        SpinnerModel heightModel = new SpinnerNumberModel(20, 10, 200, 1);
+        SpinnerModel widthModel = new SpinnerNumberModel(20, 2, 200, 1);
+        SpinnerModel heightModel = new SpinnerNumberModel(20, 2, 200, 1);
 
         frame.setTitle("Wirtualny main.Swiat -- Jacek Ardanowski 165178");
         frame.setSize(800, 600);
@@ -35,7 +33,7 @@ public class Screen extends JPanel{
         JTextArea Message = new JTextArea("Ustawienia rozmiaru planszy: ");
         JTextArea widthTextInput = new JTextArea("Podaj szerokosc: ");
         JTextArea heightTextInput = new JTextArea("Podaj wysokosc: ");
-        Message.setBounds(15, 10, 250, 30);
+        Message.setBounds(15, 10, 260, 30);
         widthTextInput.setBounds(15, 80, 150, 30);
         heightTextInput.setBounds(15, 130, 150, 30);
         Message.setFont(font);
@@ -60,10 +58,19 @@ public class Screen extends JPanel{
         frame.setVisible(true);
 
         start_button.addActionListener(e -> {
-                    frame.setVisible(false);
+            frame.setVisible(false);
+
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    new MyFrame((Integer)widthSpinner.getValue(), (Integer)heightSpinner.getValue());
                 }
-        );
+            });
+        });
     }
+}
+
 
 //    public void windowApplication(int WIDTH, int HEIGHT) {
 //        final int PLANSZA_WIDTH = 400;
@@ -108,4 +115,4 @@ public class Screen extends JPanel{
 //
 //        frame.setVisible(true);
 //    }
-}
+
