@@ -32,12 +32,6 @@ public class Czlowiek extends Zwierze {
 
     public void akcja() {
 
-        if(swiat.getTarczaAlzura() == true)
-        System.out.println("tarcza ON");
-        else
-        System.out.println("tarcza OFF");
-
-
         if (--skillEnabled < 0)
             swiat.setTarczaAlzura(false);
 

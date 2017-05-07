@@ -80,8 +80,8 @@ public class Swiat {
     Swiat(int WIDTH, int HEIGHT) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
-        int LICZBA_ZWIERZAT = 0;
-        int LICZBA_ROSLIN = 0;
+        int LICZBA_ZWIERZAT = 4;
+        int LICZBA_ROSLIN = 10;
 
         lista = new ArrayList<>();
         komunikaty = new ArrayList<>();
@@ -116,6 +116,13 @@ public class Swiat {
             lista.add(new Jagody(this));
             lista.add(new Barszcz(this));
         }
+
+        for (int i = lista.size() - 1; i >= 0; i--) {
+            if (lista.get(i).getWiek() == -1) {
+                lista.remove(i);
+            }
+        }
+
         sortujInicjatywa();
     }
 

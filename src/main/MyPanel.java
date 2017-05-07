@@ -40,7 +40,7 @@ public class MyPanel extends JPanel implements MouseListener {
         empty_sprite = new Sprite(true);
 
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        setPreferredSize(new Dimension(300 + plansza_width, 200 + plansza_height));
+        setPreferredSize(new Dimension(400 + plansza_width, 200 + plansza_height));
         setLayout(null);
         addMouseListener(this);
         setFocusable(true);
@@ -82,17 +82,11 @@ public class MyPanel extends JPanel implements MouseListener {
 
 
         next_turn.addActionListener(e -> {
-            if (!swiat.getCzyKoniec()) {
+            if (!swiat.getCzyKoniec())
                 swiat.wykonajTure();
-                for (int i = 0; i < swiat.getKomunikaty().size(); i++)
-                    System.out.println(swiat.getKomunikaty().get(i));
-                swiat.getKomunikaty().clear();
-            } else {
-                System.out.println("Koniec symulacji!");
-                setVisible(false);
-                frame.setVisible(false);
-                this.frame = null;
-            }
+            else
+                swiat.komentuj("Koniec symulacji!");
+            repaint();
         });
         save_button.addActionListener(e -> {
             swiat.save();
@@ -126,7 +120,27 @@ public class MyPanel extends JPanel implements MouseListener {
             }
         }
 
-        repaint();
+        int fontSize = 16;
+        int line = 4;
+        g.drawString("Tura nr: " + swiat.getTurnCount(), plansza_width + 20, fontSize + offset);
+        if (swiat.getTarczaAlzura())
+            g.drawString("umiejętność: ON", plansza_width + 100, fontSize + offset);
+        else
+            g.drawString("umiejętność: OFF", plansza_width + 100, fontSize + offset);
+
+        g.drawString("Komunikaty:", plansza_width + 20, line * fontSize);
+
+        if (swiat.getKomunikaty().size() == 0) {
+            line++;
+            g.drawString("brak!", plansza_width + 20, line * fontSize + offset);
+        } else {
+            for (String komunikat : swiat.getKomunikaty()) {
+                line++;
+                g.drawString(komunikat, plansza_width + 20, line * fontSize + offset);
+            }
+        }
+
+        swiat.getKomunikaty().clear();
     }
 
 

@@ -26,6 +26,7 @@ public class MyFrame extends JFrame implements KeyListener {
         add(panel);
         pack();
         setVisible(true);
+
     }
 
     public void keyPressed(KeyEvent e) {
@@ -54,6 +55,12 @@ public class MyFrame extends JFrame implements KeyListener {
                     break;
             }
 
+            if (!swiat.getCzyKoniec())
+                swiat.wykonajTure();
+            else
+                swiat.komentuj("Koniec symulacji!");
+
+            repaint();
         }
     }
 
