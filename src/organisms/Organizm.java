@@ -12,7 +12,7 @@ public abstract class Organizm implements Comparable<Organizm> {
     protected int wiek;
     protected String rodzaj;
     protected point pos;
-    protected point old_pos;
+    public point old_pos;
     protected Swiat swiat;
 
 
@@ -34,7 +34,7 @@ public abstract class Organizm implements Comparable<Organizm> {
     }
 
     public int compareTo(Organizm other) {
-        int diff = this.inicjatywa - other.getInicjatywa();
+        int diff = other.getInicjatywa() - this.inicjatywa;
         if (diff != 0) return diff;
 
         if(this.wiek > other.getWiek()) return this.wiek;
@@ -90,15 +90,15 @@ public abstract class Organizm implements Comparable<Organizm> {
     }
 
     //settery
-    void setPosx(int x) {
+    public void setPosx(int x) {
         this.pos.x = x;
     }
 
-    void setPosy(int y) {
+    public void setPosy(int y) {
         this.pos.y = y;
     }
 
-    void setWiek(int wiek) {
+    public void setWiek(int wiek) {
         this.wiek = wiek;
     }
 
@@ -124,7 +124,7 @@ public abstract class Organizm implements Comparable<Organizm> {
 
     void die() {
         if (this.rodzaj == "CZLOWIEK")
-            swiat.changeStatement(swiat.getCzyKoniec());
+            swiat.setKoniec();
         else {
             this.wiek = -1;
         }

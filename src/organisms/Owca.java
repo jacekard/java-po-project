@@ -11,7 +11,7 @@ public class Owca extends Zwierze {
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
     }
 
-    private Owca(Swiat swiat, int x, int y) {
+    public Owca(Swiat swiat, int x, int y) {
         super(4, 4, null, 0, "OWCA", swiat);
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
         this.pos.x = x;

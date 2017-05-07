@@ -1,12 +1,10 @@
 package main;
 
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.String;
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import organisms.*;
 
@@ -14,13 +12,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class Swiat {
-    public int WIDTH = 40;
-    public int HEIGHT = 20;
+import static java.lang.Integer.parseInt;
 
+public class Swiat {
+    public int WIDTH;
+    public int HEIGHT;
     private ArrayList<String> komunikaty;
     public ArrayList<Organizm> lista;
     public Organizm[][] world;
+    public Czlowiek player;
     public JPanel panel;
     public JFrame frame;
     private JTextArea lista_gatunkow;
@@ -31,6 +31,7 @@ public class Swiat {
     private boolean czySave = false;
     private boolean czyLoad = false;
     private boolean tarczaAlzura = false;
+    public boolean ifKeyWasPressed = false;
 
     public Plansza plansza;
     public Sprite pusty_sprite;
@@ -59,12 +60,18 @@ public class Swiat {
         return turnCount;
     }
 
+    public void setKoniec() {
+        czyKoniec = true;
+    }
+
     public void changeStatement(boolean statement) {
         if (statement) statement = false;
         else statement = true;
     }
 
-    public ArrayList<String> getKomunikaty() { return komunikaty; }
+    public ArrayList<String> getKomunikaty() {
+        return komunikaty;
+    }
 
     public void addTurn() {
         turnCount++;
@@ -73,8 +80,8 @@ public class Swiat {
     Swiat(int WIDTH, int HEIGHT) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
-        int LICZBA_ZWIERZAT = 3;
-        int LICZBA_ROSLIN = 5;
+        int LICZBA_ZWIERZAT = 0;
+        int LICZBA_ROSLIN = 0;
 
         lista = new ArrayList<>();
         komunikaty = new ArrayList<>();
@@ -90,7 +97,8 @@ public class Swiat {
         }
 
         //alokacja zwierzat i czlowieka.
-        lista.add(new Czlowiek(this));
+        player = new Czlowiek(this);
+        lista.add(player);
 
         for (int k = 0; k < LICZBA_ZWIERZAT; k++) {
             lista.add(new Wilk(this));
@@ -101,6 +109,7 @@ public class Swiat {
         }
 
         for (int k = 0; k < LICZBA_ROSLIN; k++) {
+            lista.add(new Trawa(this));
             lista.add(new Trawa(this));
             lista.add(new Mlecz(this));
             lista.add(new Guarana(this));
@@ -144,123 +153,102 @@ public class Swiat {
         Collections.sort(lista);
     }
 
-    public void save() {
-        changeStatement(czySave);
-
-        try {
-            FileWriter plik = new FileWriter("D:\\java-po\\src\\Saves\\save.txt", true);
-            BufferedWriter buff = new BufferedWriter(plik);
-
-            buff.write(WIDTH + " ");
-            buff.write(HEIGHT);
-            buff.newLine();
-
-            for (int y = 0; y < HEIGHT; y++) {
-                for (int x = 0; x < WIDTH; x++) {
-                    if (world[y][x] == null) buff.write(".");
-                    else if (world[y][x].getRodzaj().equals("CZLOWIEK")) buff.write("c");
-                    else if (world[y][x].getRodzaj().equals("WILK")) buff.write("w");
-                    else if (world[y][x].getRodzaj().equals("OWCA")) buff.write("o");
-                    else if (world[y][x].getRodzaj().equals("LIS")) buff.write("l");
-                    else if (world[y][x].getRodzaj().equals("ZOLW")) buff.write("z");
-                    else if (world[y][x].getRodzaj().equals("ANTYLOPA")) buff.write("a");
-                    else if (world[y][x].getRodzaj().equals("TRAWA")) buff.write("t");
-                    else if (world[y][x].getRodzaj().equals("MLECZ")) buff.write("m");
-                    else if (world[y][x].getRodzaj().equals("GUARANA")) buff.write("g");
-                    else if (world[y][x].getRodzaj().equals("JAGODY")) buff.write("j");
-                    else if (world[y][x].getRodzaj().equals("BARSZCZ")) buff.write("b");
-                }
-                buff.newLine();
-            }
-
-            if (tarczaAlzura) buff.write("1");
-            else buff.write("0");
-
-            buff.write(turnCount - 1);
-
-            plik.close();
-
-            komentuj("Zapisano gre!");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void load() {
-        changeStatement(czyLoad);
-
-        lista.clear();
-
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
-                world[y][x] = null;
-            }
-        }
-
-        int x0 = 0;
-        int y0 = 0;
-        int a, b;
         try {
-            FileReader file = new FileReader("./Saves/save.txt");
-            int n;
+            Scanner odczyt = new Scanner(new File("saves/save.txt"));
+            String info;
+            String[] tab;
+            lista.clear();
 
-            WIDTH = file.read();
-            HEIGHT = file.read();
-
-            world = new Organizm[HEIGHT][WIDTH];
             for (int y = 0; y < HEIGHT; y++) {
                 for (int x = 0; x < WIDTH; x++) {
                     world[y][x] = null;
                 }
             }
 
-            n = file.read();
+            info = odczyt.nextLine();
+            tab = info.split(" ");
 
-            while (y0 != HEIGHT) {
-                n = file.read();
-                if ((char) n == '\n') {
-                    x0 = -1;
-                    ++y0;
+            world = new Organizm[parseInt(tab[0])][parseInt(tab[1])];
+            for (int y = 0; y < HEIGHT; y++) {
+                for (int x = 0; x < WIDTH; x++) {
+                    world[y][x] = null;
                 }
-                if ((char) n == 'c') return; //add czlowiek;
-                else if ((char) n == 'w') return; //add wilk
-                else if ((char) n == 'a') return; //add antylopa
-                else if ((char) n == 'o') return;//add owca
-                else if ((char) n == 'z') return; //add zolw
-                else if ((char) n == 'l') return; //add lis
-                else if ((char) n == 'g') return; //add guarana
-                else if ((char) n == 't') return; //add trawa
-                else if ((char) n == 'm') return; //add mlecz
-                else if ((char) n == 'j') return; //add jagody
-                else if ((char) n == 'b') return; //add barszcz
-                ++x0;
             }
 
-            a = file.read();
-            if (a == 1) tarczaAlzura = true;
-            b = file.read();
-            turnCount = b;
-            komentuj("Wczytano gre!");
+            while(odczyt.hasNextLine()) {
+                info = odczyt.nextLine();
+                tab = info.split(" ");
+                String id = tab[0];
+                int x = parseInt(tab[1]);
+                int y = parseInt(tab[2]);
+                addingNewOrganism(this, id, x, y);
+            }
 
-            file.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
-        } catch (IOException error) {
-            error.printStackTrace();
+    public void save() {
+        try {
+
+            PrintWriter zapis = new PrintWriter("saves/save.txt");
+            zapis.println(HEIGHT + " " + WIDTH);
+
+            for (int i = 0; i < lista.size(); i++) {
+                zapis.println(
+                        lista.get(i).getRodzaj() + " " +
+                        lista.get(i).getPosx() + " " + lista.get(i).getPosy());
+            }
+            komentuj("Zapisano gre!");
+            zapis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
     }
 
     public void randomPlants() {
-        if(main.Util.los(1,200) == 1)
+        if (main.Util.los(1, 200) == 1)
             lista.add(new Guarana(this));
 
-         if(main.Util.los(1,200) == 2)
-             lista.add(new Jagody(this));
+        if (main.Util.los(1, 200) == 2)
+            lista.add(new Jagody(this));
 
-         if(main.Util.los(1,200) == 3)
-             lista.add(new Barszcz(this));
+        if (main.Util.los(1, 200) == 3)
+            lista.add(new Barszcz(this));
     }
 
+    public void addingNewOrganism(Swiat swiat, String id, int x, int y) {
+        if(x < 0) x = 0;
+        if(y < 0) y = 0;
+
+        switch(id.toUpperCase()) {
+            case "CZLOWIEK": lista.add(new Czlowiek(this, x, y));
+                break;
+            case "ANTYLOPA": lista.add(new Antylopa(this, x, y));
+                break;
+            case "BARSZCZ": lista.add(new Barszcz(this, x, y));
+                break;
+            case "GUARANA": lista.add(new Guarana(this, x, y));
+                break;
+            case "JAGODY": lista.add(new Jagody(this, x, y));
+                break;
+            case "LIS": lista.add(new Lis(this, x, y));
+                break;
+            case "MLECZ": lista.add(new Mlecz(this, x, y));
+                break;
+            case "OWCA": lista.add(new Owca(this, x, y));
+                break;
+            case "WILK": lista.add(new Wilk(this, x, y));
+                break;
+            case "TRAWA": lista.add(new Trawa(this, x, y));
+                break;
+            case "ZOLW": lista.add(new Zolw(this, x, y));
+                break;
+
+        }
+    }
 
 }

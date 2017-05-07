@@ -1,11 +1,15 @@
 package main;
 
 import java.awt.*;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.*;
+import java.util.Arrays;
 
 import javax.swing.*;
 
-public class MyPanel extends JPanel {
+public class MyPanel extends JPanel implements MouseListener {
 
     private Swiat swiat;
     private Sprite empty_sprite;
@@ -16,7 +20,10 @@ public class MyPanel extends JPanel {
     private final int button_width = 80;
     private final int button_height = 30;
     private final int offset = 10;
-    private final int sprite_size = 18;
+    private final int sprite_size = 20;
+    private int mouseX;
+    private int mouseY;
+    private String organism_choice = "TRAWA";
 
     private final Font font;
 
@@ -24,7 +31,7 @@ public class MyPanel extends JPanel {
     private int plansza_height;
     private JTextArea Message;
 
-    public MyPanel(Swiat swiat, int width, int height) {
+    public MyPanel(Swiat swiat, JFrame frame, int width, int height) {
         this.swiat = swiat;
         this.frame = frame;
         this.plansza_width = width * sprite_size;
@@ -33,19 +40,40 @@ public class MyPanel extends JPanel {
         empty_sprite = new Sprite(true);
 
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        setPreferredSize(new Dimension(400+plansza_width, 300+plansza_height));
+        setPreferredSize(new Dimension(300 + plansza_width, 200 + plansza_height));
         setLayout(null);
+        addMouseListener(this);
+        setFocusable(true);
         font = new Font(Font.SANS_SERIF, 3, 18);
+
+        String[] dialog_choice = {"Antylopa", "Lis", "Owca", "Wilk", "Zolw", "Trawa",
+                "Mlecz", "Guarana", "Barszcz"};
+        JComboBox comboBox = new JComboBox(dialog_choice);
+        comboBox.setBounds(3 * button_width, plansza_height + 2 * offset + button_height, 150, 30);
+        comboBox.setSelectedIndex(0);
+        comboBox.setFocusable(false);
+        add(comboBox);
+        comboBox.addActionListener(e -> {
+            organism_choice = (String) comboBox.getSelectedItem();
+        });
 
         JButton save_button = new JButton("save");
         JButton load_button = new JButton("load");
         JButton next_turn = new JButton("nowa tura");
         JButton tarcza_alzura = new JButton("tarcza alzura");
 
-        save_button.setBounds(offset,plansza_height+offset, button_width, button_height);
-        load_button.setBounds(button_width + 2*offset,plansza_height+offset, button_width, button_height);
-        next_turn.setBounds(2*button_width + 3*offset,plansza_height+offset, button_width + 2*offset, button_height);
-        tarcza_alzura.setBounds(offset,plansza_height+2*offset+button_height, 2*button_width, button_height);
+
+        save_button.setBounds(offset, plansza_height + offset, button_width, button_height);
+        load_button.setBounds(button_width + 2 * offset, plansza_height + offset, button_width, button_height);
+        next_turn.setBounds(2 * button_width + 3 * offset, plansza_height + offset, button_width + 2 * offset, button_height);
+        tarcza_alzura.setBounds(offset, plansza_height + 2 * offset + button_height, 2 * button_width, button_height);
+
+
+        save_button.setFocusable(false);
+        load_button.setFocusable(false);
+        next_turn.setFocusable(false);
+        tarcza_alzura.setFocusable(false);
+
 
         add(save_button);
         add(load_button);
@@ -54,15 +82,16 @@ public class MyPanel extends JPanel {
 
 
         next_turn.addActionListener(e -> {
-            if(!swiat.getCzyKoniec()) {
+            if (!swiat.getCzyKoniec()) {
                 swiat.wykonajTure();
                 for (int i = 0; i < swiat.getKomunikaty().size(); i++)
                     System.out.println(swiat.getKomunikaty().get(i));
                 swiat.getKomunikaty().clear();
-                //System.out.println(swiat.lista.size());
             } else {
                 System.out.println("Koniec symulacji!");
-
+                setVisible(false);
+                frame.setVisible(false);
+                this.frame = null;
             }
         });
         save_button.addActionListener(e -> {
@@ -70,6 +99,9 @@ public class MyPanel extends JPanel {
         });
         load_button.addActionListener(e -> {
             swiat.load();
+        });
+        tarcza_alzura.addActionListener(e -> {
+            swiat.player.skill();
         });
     }
 
@@ -82,27 +114,41 @@ public class MyPanel extends JPanel {
                 if (swiat.world[y][x] == null)
                     g.drawImage(
                             empty_sprite.img,
-                            sprite_size * x,
-                            sprite_size * y,
+                            (sprite_size) * x,
+                            (sprite_size) * y,
                             this);
                 else
                     g.drawImage(
                             swiat.world[y][x].getSprite().img,
-                            sprite_size * x,
-                            sprite_size * y,
+                            (sprite_size) * x,
+                            (sprite_size) * y,
                             this);
             }
         }
-/*
-        for( int i = 0; i < swiat.getKomunikaty().size(); i++ ) {
-            Message = new JTextArea(swiat.getKomunikaty().get(i));
-            Message.setBounds(plansza_width+5*offset, offset + i*button_height, 300, button_height);
-            Message.setFont(font);
-            add(Message);
-
-        }
-*/
 
         repaint();
+    }
+
+
+    public void mousePressed(MouseEvent e) {
+        mouseX = (e.getX()) / sprite_size;
+        mouseY = (e.getY()) / sprite_size;
+
+        if (swiat.world[mouseY][mouseX] == null)
+            swiat.addingNewOrganism(swiat, organism_choice, mouseX, mouseY);
+
+        repaint();
+    }
+
+    public void mouseExited(MouseEvent e) {
+    }
+
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    public void mouseClicked(MouseEvent e) {
     }
 }

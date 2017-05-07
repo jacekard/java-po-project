@@ -12,7 +12,7 @@ public class Trawa extends Roslina {
         allocate();
     }
 
-    private Trawa(Swiat swiat, int x, int y) {
+    public Trawa(Swiat swiat, int x, int y) {
         super(0, 0, null, 0, "TRAWA", swiat);
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
         maxZakresLosowania = 30;

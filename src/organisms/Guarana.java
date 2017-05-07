@@ -12,7 +12,7 @@ public class Guarana extends Roslina {
         allocate();
     }
 
-    private Guarana(Swiat swiat, int x, int y) {
+    public Guarana(Swiat swiat, int x, int y) {
         super(0, 0, null, 0, "GUARANA", swiat);
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
         maxZakresLosowania = 60;

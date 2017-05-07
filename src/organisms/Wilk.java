@@ -11,7 +11,7 @@ public class Wilk extends Zwierze {
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
     }
 
-    private Wilk(Swiat swiat, int x, int y) {
+    public Wilk(Swiat swiat, int x, int y) {
         super(9, 5, null, 0, "WILK", swiat);
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
         this.pos.x = x;

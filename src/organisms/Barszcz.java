@@ -13,7 +13,7 @@ public class Barszcz extends Roslina {
         allocate();
     }
 
-    private Barszcz(Swiat swiat, int x, int y) {
+    public Barszcz(Swiat swiat, int x, int y) {
         super(99, 0, null, 0, "BARSZCZ", swiat);
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
         maxZakresLosowania = 70;

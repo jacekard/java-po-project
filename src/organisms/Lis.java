@@ -12,7 +12,7 @@ public class Lis extends Zwierze {
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
     }
 
-    private Lis(Swiat swiat, int x, int y) {
+    public Lis(Swiat swiat, int x, int y) {
         super(3, 7, null, 0, "LIS", swiat);
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
         this.pos.x = x;

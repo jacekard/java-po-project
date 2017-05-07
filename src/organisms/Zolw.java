@@ -13,7 +13,7 @@ public class Zolw extends Zwierze {
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
     }
 
-    private Zolw(Swiat swiat, int x, int y) {
+    public Zolw(Swiat swiat, int x, int y) {
         super(4, 4, null, 0, "ZOLW", swiat);
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
         this.pos.x = x;

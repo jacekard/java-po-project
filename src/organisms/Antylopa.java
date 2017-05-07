@@ -13,7 +13,7 @@ public class Antylopa extends Zwierze {
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
     }
 
-    private Antylopa(Swiat swiat, int x, int y) {
+    public Antylopa(Swiat swiat, int x, int y) {
         super(4, 4, null, 0, "ANTYLOPA", swiat);
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
         this.pos.x = x;

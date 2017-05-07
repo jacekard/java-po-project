@@ -13,7 +13,7 @@ public class Mlecz extends Roslina {
         allocate();
     }
 
-    private Mlecz(Swiat swiat, int x, int y) {
+    public Mlecz(Swiat swiat, int x, int y) {
         super(0, 0, null, 0, "MLECZ", swiat);
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
         maxZakresLosowania = 60;

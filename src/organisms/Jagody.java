@@ -12,7 +12,7 @@ public class Jagody extends Roslina {
         allocate();
     }
 
-    private Jagody(Swiat swiat, int x, int y) {
+    public Jagody(Swiat swiat, int x, int y) {
         super(99, 0, null, 0, "JAGODY", swiat);
         sprite = new Sprite(super.setProperSprite(this.rodzaj));
         maxZakresLosowania = 60;
